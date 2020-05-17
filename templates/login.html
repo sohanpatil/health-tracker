@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <title>Health Dataset</title>
+    <!-- CSS  -->
+    <script type="text/javascript" src="static/lib/d3/d3.min.js"></script>
+    <!--using version 3 of d3js-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <!-- Need internal css to override all others-->
+</head>
+
+<body>
+  <nav>
+    <div class="nav-wrapper container">
+      <a href="#" class="brand-logo">Health Tracker</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="#">Details</a></li>
+      </ul>
+    </div>
+  </nav>
+    <div class="container">
+        <h3>Please login</h3>
+        <br>
+        <form action="" method="post">
+          <input type="text" placeholder="Username" name="username" value="{{
+            request.form.username }}">
+           <input type="password" placeholder="Password" name="password" value="{{
+            request.form.password }}">
+          <input class="btn btn-default" type="submit" value="Login">
+        </form>
+        {% if error %}
+          <h6 class="error"><strong>Error:</strong> {{ error }}</h6>
+        {% endif %}
+      </div>    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="static/js/materialize.js"></script>
+    <script src="static/js/init.js"></script>
+</body>
+
+</html>

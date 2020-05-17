@@ -1,0 +1,19 @@
+cd /users/sohanpatil/venv/usr/local/bin
+
+source activate
+
+cd /Users/sohanpatil/Documents/viz-fnl/A2
+
+export FLASK_APP=start.py
+
+flask run
+
+#for some weird reason have to use below command instead of above
+
+python start.py
+
+
+#changelog -> to provide good transitions, sepearet data laoding in diff function like https://bl.ocks.org/Qizly/8f6ba236b79d9bb03a80
+
+pip install flask-login
+pip install myfitnesspal
