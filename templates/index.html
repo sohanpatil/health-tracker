@@ -8,17 +8,80 @@
     <!-- CSS  -->
     <script type="text/javascript" src="static/lib/d3/d3.min.js"></script>
     <!--using version 3 of d3js-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
-    <link href="static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <!-- Need internal css to override all others-->
 </head>
+<style>
 
+    body { font: 12px Arial;}
+    
+    path { 
+        stroke: steelblue;
+        stroke-width: 2;
+        fill: none;
+    }
+    
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: grey;
+        stroke-width: 1;
+        shape-rendering: crispEdges;
+    }
+    
+    </style>
 <body>
+    <!-- start -->
+    <div class ="container mt-4">
+    <div class="card-group">
+        <div class="col mb-6">
+          <div class="card" >
+            <div class="card-body">
+              <h5 class="card-title"> Weekly Calorie/Water Tracking</h5>
+              <div class="row" id="myfitnesspal_chart">
+                <!-- append SVGs here -->
+                
+            </div>
+            </div>
+          </div>
+          <br/>
+        </div>
+        
+        <div class="col mb-6">
+          <div class="card" >
+            <div class="card-body">
+                <h5 class="card-title">title</h5>
+                <div class="row" id="current_chart">
+                    
+                    <!-- append SVGs here -->
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col mb-12">
+          <div class="card" >
+            <div class="card-body">
+                <h5 class="card-title">title</h5>
+                <p class="card-text">Body</p>
+              </div>
+          </div>
+        </div>
+        
+      </div>
+      </div>
+
+      
+
+    <!-- end -->
     <!--  Scripts-->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="static/js/materialize.js"></script>
     <script src="static/js/init.js"></script>
+    <script src="static/js/myfitnesstrack.js"></script>
      <!--
     <script src="static/js/helper_task2.js"></script>
      -->
