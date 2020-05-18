@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>Nutrient Database Explorer</title>
+    <link rel="stylesheet" type="text/css" href="static/css/parallel.css" />
+</head>
+
+<body>
+    <div id="chart">
+        <canvas id="background"></canvas>
+        <canvas id="foreground"></canvas>
+        <canvas id="highlight"></canvas>
+        <svg></svg>
+    </div>
+    <div id="wrap">
+        <div class="third">
+            <small>
+                <!--Last rendered <strong id="render-speed"></strong> lines-->
+            </small>
+            <h3>Food Groups</h3>
+            <p id="legend">
+            </p>
+        </div>
+        <div class="third">
+            <h3>Sample of 25 entries <input type="text" id="search" placeholder="Search Foods..."></input></h3>
+            <p id="food-list">
+            </p>
+        </div>
+    </div>
+</body>
+<script src="static/lib/jquery/jquery.js"></script>
+<!-- <script src="static/lib/d3/d3.min.js"></script> -->
+<script src="https://mbostock.github.com/d3/d3.v2.js"></script>
+<script src="http://underscorejs.org/underscore.js"></script>
+<script src="static/js/parallel.js"></script>
+
+</html>

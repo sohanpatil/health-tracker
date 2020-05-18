@@ -10,6 +10,8 @@ import myfitnesspal
 
 app = Flask(__name__)
 
+nutrition_dataset = pd.DataFrame()
+
 @app.after_request
 def add_header(r):
     """
@@ -42,12 +44,39 @@ def login():
             return redirect(url_for('home'))
     return render_template('login.html', error=error)
 
+
+@app.route('/parallel')
+def parallel():
+    return render_template('parallel.html')
+
+@app.route('/getParacoords')
+def getParacoords():
+    global nutrition_dataset
+    data = nutrition_dataset
+    chart_data = data.to_dict(orient='records')
+    #chart_data = json.dumps(chart_data, indent=2)
+    print(chart_data)
+
+    data = {'chart_data': chart_data}
+    return jsonify(data)
+
 @app.route('/test')
-def testConnection():
-    return "Connection Alive."
+def test():
+    return render_template('test.html')
+
+def readNutritionData():
+    global nutrition_dataset
+    nutrition_dataset = pd.read_csv("data.csv")
+    data = nutrition_dataset
+    chart_data = data.to_dict(orient='records')
+    #chart_data = json.dumps(chart_data, indent=2)
+    print(chart_data)
+
 
 if __name__ == '__main__':
 
     global client
+    readNutritionData()
+    
     app.run(debug=True)
     app.run(host="0.0.0.0", port=5000, debug=True, use_reloader=True)
