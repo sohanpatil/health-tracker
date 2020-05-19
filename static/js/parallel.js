@@ -279,9 +279,6 @@ function data_table(sample) {
         return a[col] < b[col] ? -1 : 1;
     });
 
-    console.log(sample)
-
-
     var table = d3.select("#food-list")
         .html("")
         .selectAll(".row")
@@ -455,14 +452,6 @@ function brush() {
     if (query.length > 0) {
         selected = search(selected, query);
     }
-
-    if (selected.length < data.length && selected.length > 0) {
-        d3.select("#keep-data").attr("disabled", null);
-        d3.select("#exclude-data").attr("disabled", null);
-    } else {
-        d3.select("#keep-data").attr("disabled", "disabled");
-        d3.select("#exclude-data").attr("disabled", "disabled");
-    };
 
     var tallies = _(selected)
         .groupBy(function (d) { return d.group; })
