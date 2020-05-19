@@ -23,32 +23,31 @@ var m = [60, 0, 10, 0],
     brush_count = 0,
     excluded_groups = [];
 
-
 var colors = {
-    "Baby Foods": [185, 56, 73],
-    "Baked Products": [37, 50, 75],
-    "Beef Products": [325, 50, 39],
-    "Beverages": [10, 28, 67],
-    "Breakfast Cereals": [271, 39, 57],
-    "Cereal Grains and Pasta": [56, 58, 73],
-    "Dairy and Egg Products": [28, 100, 52],
-    "Ethnic Foods": [41, 75, 61],
-    "Fast Foods": [60, 86, 61],
-    "Fats and Oils": [30, 100, 73],
-    "Finfish and Shellfish Products": [318, 65, 67],
-    "Fruits and Fruit Juices": [274, 30, 76],
-    "Lamb, Veal, and Game Products": [20, 49, 49],
-    "Legumes and Legume Products": [334, 80, 84],
-    "Meals, Entrees, and Sidedishes": [185, 80, 45],
-    "Nut and Seed Products": [10, 30, 42],
-    "Pork Products": [339, 60, 49],
-    "Poultry Products": [359, 69, 49],
-    "Restaurant Foods": [204, 70, 41],
-    "Sausages and Luncheon Meats": [1, 100, 79],
-    "Snacks": [189, 57, 75],
-    "Soups, Sauces, and Gravies": [110, 57, 70],
-    "Spices and Herbs": [214, 55, 79],
-    "Sweets": [339, 60, 75],
+    "Baby Foods": [339, 60, 75],
+    "Baked Products": [110, 57, 70],
+    "Beef Products": [1, 100, 79],
+    "Beverages": [359, 69, 49],
+    "Breakfast Cereals": [10, 30, 42],
+    "Cereal Grains and Pasta": [334, 80, 84],
+    "Dairy and Egg Products": [274, 30, 76],
+    "Ethnic Foods": [30, 100, 73],
+    "Fast Foods": [41, 75, 61],
+    "Fats and Oils": [56, 58, 73],
+    "Finfish and Shellfish Products": [10, 28, 67],
+    "Fruits and Fruit Juices": [185, 56, 73],
+    "Lamb, Veal, and Game Products": [325, 50, 39],
+    "Legumes and Legume Products": [271, 39, 57],
+    "Meals, Entrees, and Sidedishes": [28, 100, 52],
+    "Nut and Seed Products": [60, 86, 61],
+    "Pork Products": [318, 65, 67],
+    "Poultry Products": [20, 49, 49],
+    "Restaurant Foods": [185, 80, 45],
+    "Sausages and Luncheon Meats": [339, 60, 49],
+    "Snacks":  [204, 70, 41],
+    "Soups, Sauces, and Gravies": [189, 57, 75],
+    "Spices and Herbs": [37, 50, 75],
+    "Sweets": [120, 56, 40],
     "Vegetables and Vegetable Products": [120, 56, 40]
 };
 
@@ -186,7 +185,7 @@ function createParacoords(raw_data) {
         .each(function (d) { d3.select(this).call(axis.scale(yscale[d])); })
         .append("svg:text")
         .attr("text-anchor", "middle")
-        .attr("y", function (d, i) { return i%2 == 0 ? -14 : -30 } )
+        .attr("y", function (d, i) { return i % 2 == 0 ? -14 : -30 })
         .attr("x", 0)
         .attr("class", "label")
         .text(String)
@@ -314,20 +313,20 @@ function selection_stats(opacity, n, total) {
 }
 
 var dailymax = {
-    "protein (g)":125,
-    "calories":2500,
-    "calcium (g)":0.3,
-    "sodium (g)":4,
-    "fiber (g)":35,
+    "protein (g)": 125,
+    "calories": 2500,
+    "calcium (g)": 0.3,
+    "sodium (g)": 4,
+    "fiber (g)": 35,
     "vitaminc (g)": 0.5,
-    "potassium (g)":3.5,
-    "carbohydrate (g)":300,
+    "potassium (g)": 3.5,
+    "carbohydrate (g)": 300,
     "sugars (g)": 40,
-    "fat (g)":80,
-    "water (g)":3000,
-    "saturated (g)":10,
-    "monounsat (g)":25,
-    "polyunsat (g)":10
+    "fat (g)": 80,
+    "water (g)": 3000,
+    "saturated (g)": 10,
+    "monounsat (g)": 25,
+    "polyunsat (g)": 10
 }
 
 function highlight(d) {
@@ -340,7 +339,7 @@ function highlight(d) {
         if (keys[i] == "name" || keys[i] == "group") {
             continue
         }
-        nutdata = {name: keys[i], amount:(d[keys[i]]/dailymax[keys[i]]) * 100}
+        nutdata = { name: keys[i], amount: (d[keys[i]] / dailymax[keys[i]]) * 100 }
         freqData.push(nutdata)
     }
     dashboard('#dashboard', freqData);
