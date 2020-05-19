@@ -21,9 +21,9 @@ html, body {
   .dark a {
     color: #5ae;
   }
-  /* #wrap {
-    padding: 0 3.5%;
-  } */
+   #wrap {
+    height: 360px;
+  } 
   svg {
     font-family: Ubuntu, Tahoma, Helvetica, sans-serif;
   }
@@ -32,9 +32,9 @@ html, body {
     position: absolute;
   } 
 
-  /* #chart {
-    position: relative;
-  } */
+ #chart {
+  height: 360px;
+  } 
   .brush rect.extent {
     fill: rgba(100,100,100,0.15);
     stroke: #fff;

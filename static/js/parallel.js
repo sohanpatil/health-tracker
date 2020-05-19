@@ -2,7 +2,7 @@
 chart = document.getElementById("chart")
 
 var width = chart.clientWidth,
-    height = d3.max([document.body.clientHeight - 600, 240]);
+    height = 360
 
 
 var m = [60, 0, 10, 0],
@@ -313,10 +313,37 @@ function selection_stats(opacity, n, total) {
     d3.select("#opacity").text(("" + (opacity * 100)).slice(0, 4) + "%");
 }
 
+var dailymax = {
+    "protein (g)":125,
+    "calories":2500,
+    "calcium (g)":0.3,
+    "sodium (g)":4,
+    "fiber (g)":35,
+    "vitaminc (g)": 0.5,
+    "potassium (g)":3.5,
+    "carbohydrate (g)":300,
+    "sugars (g)": 40,
+    "fat (g)":80,
+    "water (g)":3000,
+    "saturated (g)":10,
+    "monounsat (g)":25,
+    "polyunsat (g)":10
+}
+
 function highlight(d) {
     d3.select("#foreground").style("opacity", "0.25");
     d3.selectAll(".row").style("opacity", function (p) { return (d.group == p) ? null : "0.3" });
     path(d, highlighted, color(d.group, 1));
+    keys = Object.keys(d)
+    freqData = []
+    for (i in keys) {
+        if (keys[i] == "name" || keys[i] == "group") {
+            continue
+        }
+        nutdata = {name: keys[i], amount:(d[keys[i]]/dailymax[keys[i]]) * 100}
+        freqData.push(nutdata)
+    }
+    dashboard('#dashboard', freqData);
 }
 
 function unhighlight() {
