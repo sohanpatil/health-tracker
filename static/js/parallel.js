@@ -1,5 +1,9 @@
-var width = document.body.clientWidth,
-    height = d3.max([document.body.clientHeight - 540, 240]);
+
+chart = document.getElementById("chart")
+
+var width = chart.clientWidth,
+    height = d3.max([document.body.clientHeight - 400, 240]);
+
 
 var m = [60, 0, 10, 0],
     w = width - m[1] - m[3],
@@ -181,7 +185,7 @@ function createParacoords(raw_data) {
         .each(function (d) { d3.select(this).call(axis.scale(yscale[d])); })
         .append("svg:text")
         .attr("text-anchor", "middle")
-        .attr("y", function (d, i) { return -20; })
+        .attr("y", function (d, i) { return i%2 == 0 ? -14 : -30 } )
         .attr("x", 0)
         .attr("class", "label")
         .text(String)
@@ -275,18 +279,19 @@ function data_table(sample) {
         return a[col] < b[col] ? -1 : 1;
     });
 
+    console.log(sample)
+
+
     var table = d3.select("#food-list")
         .html("")
         .selectAll(".row")
         .data(sample)
-        .enter().append("div")
+        .enter().append("div").attr("class", "foodlist")
+        .style("background", function (d) { return color(d.group, 0.85) })
+
         .on("mouseover", highlight)
         .on("mouseout", unhighlight);
 
-    table
-        .append("span")
-        .attr("class", "color-block")
-        .style("background", function (d) { return color(d.group, 0.85) })
 
     table
         .append("span")
@@ -311,6 +316,7 @@ function highlight(d) {
     d3.select("#foreground").style("opacity", "0.25");
     d3.selectAll(".row").style("opacity", function (p) { return (d.group == p) ? null : "0.3" });
     path(d, highlighted, color(d.group, 1));
+    console.log(d)
 }
 
 function unhighlight() {
@@ -465,7 +471,7 @@ function paths(selected, ctx, count) {
 
     shuffled_data = _.shuffle(selected);
 
-    data_table(shuffled_data.slice(0, 25));
+    data_table(shuffled_data.slice(0, 8));
 
     ctx.clearRect(0, 0, w + 1, h + 1);
 

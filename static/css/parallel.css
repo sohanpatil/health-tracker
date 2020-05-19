@@ -21,9 +21,9 @@ html, body {
   .dark a {
     color: #5ae;
   }
-  #wrap {
+  /* #wrap {
     padding: 0 3.5%;
-  }
+  } */
   svg {
     font-family: Ubuntu, Tahoma, Helvetica, sans-serif;
   }
@@ -32,9 +32,9 @@ html, body {
     top: 0;
     left: 0;
   }
-  #chart {
+  /* #chart {
     position: relative;
-  }
+  } */
   .brush rect.extent {
     fill: rgba(100,100,100,0.15);
     stroke: #fff;
@@ -95,9 +95,9 @@ html, body {
     width: 23%;
     margin: 0 1%;
   }
-  .third {
-    width: 31.3%;
+  .searchfood {
     margin: 0 1%;
+    overflow: auto;
   }
   .half {
     width: 48%;
@@ -136,15 +136,25 @@ html, body {
   button#exclude-data:hover {
     color: #900;
   }
-  #food-list {
+  /* #food-list {
     width: 100%;
     height: 460px;
-    /*
     overflow-x: auto;
     overflow-y: auto;
-    */
+
     white-space: nowrap;
+  } */
+
+  #main-div {
+    padding-left: 5px;
   }
+  .foodlist {
+    padding: 8px;
+    line-height: 1.428571429;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+  }
+
   #legend {
     text-align: left;
     overflow-y: auto;
