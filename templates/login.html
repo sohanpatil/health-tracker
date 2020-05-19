@@ -9,23 +9,37 @@
     <script type="text/javascript" src="static/lib/d3/d3.min.js"></script>
     <!--using version 3 of d3js-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <!-- Need internal css to override all others-->
 </head>
 
-<body>
-  <nav>
-    <div class="nav-wrapper container">
-      <a href="#" class="brand-logo">Health Tracker</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="#">Details</a></li>
-      </ul>
-    </div>
-  </nav>
+<body class="text-center">
+ 
     <div class="container">
-        <h3>Please login</h3>
+      <form action="" method="post" class="form-signin">
+        <img class="mb-4" src="static/health.png" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <label for="inputUsername" class="sr-only">Username</label>
+        <input id="inputUsername" class="form-control" placeholder="Username" name="username" required autofocus value="{{
+          request.form.username }}">
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required value="{{
+          request.form.password }}">
+        <div class="checkbox mb-3">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign in"> <br/><br/>
+        {% if error %}
+        <h6 class="error"><strong>Error:</strong> {{ error }}</h6>
+      {% endif %}
+      </form>
+     
+        <!-- <h3>Please login</h3>
         <br>
         <form action="" method="post">
           <input type="text" placeholder="Username" name="username" value="{{
@@ -36,7 +50,7 @@
         </form>
         {% if error %}
           <h6 class="error"><strong>Error:</strong> {{ error }}</h6>
-        {% endif %}
+        {% endif %} -->
       </div>    <!--  Scripts-->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="static/js/init.js"></script>
