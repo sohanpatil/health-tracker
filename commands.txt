@@ -15,4 +15,5 @@
     python start.py
 
     #changelog -> to provide good transitions, sepearet data laoding in diff function like https://bl.ocks.org/Qizly/8f6ba236b79d9bb03a80
+    
     pip install myfitnesspal
