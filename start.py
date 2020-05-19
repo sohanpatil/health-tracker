@@ -9,6 +9,8 @@ from flask import Flask, render_template, request, redirect, Response, jsonify, 
 import myfitnesspal
 
 app = Flask(__name__)
+nutrition_dataset = pd.DataFrame()
+
 
 @app.after_request
 def add_header(r):
@@ -67,10 +69,28 @@ def login():
 def testConnection():
     return "Connection Alive."
 
+@app.route('/getParacoords')
+def getParacoords():
+    required_columns = request.args.get("required_columns").split(",")
+    print(required_columns)
+    global nutrition_dataset
+    data = nutrition_dataset[required_columns]
+    chart_data = data.to_dict(orient='records')
+    #chart_data = json.dumps(chart_data, indent=2)
+
+    data = {'chart_data': chart_data}
+    return jsonify(data)
+
+def readNutritionData():
+    global nutrition_dataset
+    nutrition_dataset = pd.read_csv("data.csv")
+
 if __name__ == '__main__':
 
     global client
     global lastWeekCalorie
     global lastWeekWater
+    readNutritionData()
+
     app.run(debug=True)
     app.run(host="0.0.0.0", port=5000, debug=True, use_reloader=True)
