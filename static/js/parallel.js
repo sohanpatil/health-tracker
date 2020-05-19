@@ -23,6 +23,7 @@ var m = [60, 0, 10, 0],
     brush_count = 0,
     excluded_groups = [];
 
+
 var colors = {
     "Baby Foods": [185, 56, 73],
     "Baked Products": [37, 50, 75],
@@ -316,7 +317,6 @@ function highlight(d) {
     d3.select("#foreground").style("opacity", "0.25");
     d3.selectAll(".row").style("opacity", function (p) { return (d.group == p) ? null : "0.3" });
     path(d, highlighted, color(d.group, 1));
-    console.log(d)
 }
 
 function unhighlight() {
@@ -348,9 +348,10 @@ function invert_axis(d) {
 function path(d, ctx, color) {
     if (color) ctx.strokeStyle = color;
     ctx.beginPath();
-    var x0 = xscale(0) - 15,
+    var x0 = xscale.range()[0] - 15,
         y0 = yscale[dimensions[0]](d[dimensions[0]]);
     ctx.moveTo(x0, y0);
+
     dimensions.map(function (p, i) {
         var x = xscale(p),
             y = yscale[p](d[p]);
