@@ -51,11 +51,12 @@ def parallel():
 
 @app.route('/getParacoords')
 def getParacoords():
+    required_columns = request.args.get("required_columns").split(",")
+    print(required_columns)
     global nutrition_dataset
-    data = nutrition_dataset
+    data = nutrition_dataset[required_columns]
     chart_data = data.to_dict(orient='records')
     #chart_data = json.dumps(chart_data, indent=2)
-    print(chart_data)
 
     data = {'chart_data': chart_data}
     return jsonify(data)
@@ -70,7 +71,6 @@ def readNutritionData():
     data = nutrition_dataset
     chart_data = data.to_dict(orient='records')
     #chart_data = json.dumps(chart_data, indent=2)
-    print(chart_data)
 
 
 if __name__ == '__main__':

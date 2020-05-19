@@ -8,14 +8,15 @@
 </head>
 
 <body>
+    <input name="updateButton" type="button" value="Task 2" onclick="getParacoords()" />
     <div id="chart">
         <canvas id="background"></canvas>
         <canvas id="foreground"></canvas>
         <canvas id="highlight"></canvas>
-        <svg></svg>
+        <svg id="paracoords"></svg>
     </div>
     <div id="wrap">
-        <div class="third">
+        <div class="third" hidden>
             <small>
                 <!--Last rendered <strong id="render-speed"></strong> lines-->
             </small>

@@ -70,15 +70,31 @@ background = document.getElementById('background').getContext('2d');
 background.strokeStyle = "rgba(0,100,160,0.1)";
 background.lineWidth = 1.7;
 
-var svg = d3.select("svg")
+var svg = d3.select("#paracoords")
     .attr("width", w + m[1] + m[3])
     .attr("height", h + m[0] + m[2])
     .append("svg:g")
     .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
 
+var flag = 0
 
 function getParacoords() {
-    $.get("/getParacoords", function (data) {
+    d3.select("#paracoords").remove()
+    svg = d3.select("#chart").append("svg").attr("id", "paracoords")
+    svg = d3.select("#paracoords")
+    .attr("width", w + m[1] + m[3])
+    .attr("height", h + m[0] + m[2])
+    .append("svg:g")
+    .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+    var required_columns = ""
+    if (flag % 2) {
+        required_columns = "id,sodium (g),calcium (g),water (g),calories,name,group"
+    } else {
+        required_columns = "water (g),calories,name,group"
+    }
+    flag++
+
+    $.get("/getParacoords?required_columns=" + required_columns, function (data) {
         createParacoords(data.chart_data)
     });
 }
@@ -96,9 +112,10 @@ function createParacoords(raw_data) {
         return d;
     });
     xscale.domain(dimensions = d3.keys(data[0]).filter(function (k) {
-        return (_.isNumber(data[0][k]) && k != "id") && (yscale[k] = d3.scale.linear()
-            .domain(d3.extent(data, function (d) { return +d[k]; }))
-            .range([h, 0]));
+        return (_.isNumber(data[0][k]))
+            && (yscale[k] = d3.scale.linear()
+                .domain(d3.extent(data, function (d) { return +d[k]; }))
+                .range([h, 0]));
     }).sort());
     console.log(dimensions)
 
