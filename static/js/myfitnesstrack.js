@@ -10,15 +10,11 @@ function getWaterCaloriesAjax() {
             lastWeekData = []
             var obj = $.parseJSON(data);
             for (var key in obj) {
-                
-                //if (obj[0].hasOwnProperty(key)) {
-                    console.log(JSON.stringify(obj[key]));
                     lastWeekData.push({
                         "calories": parseFloat(obj[key]['calories']),
                         "water": parseFloat(obj[key]['water']),
                         "date": obj[key]['date']
                     });
-                //}
             }
             plot(lastWeekData);
         }
@@ -73,8 +69,6 @@ function plot(lastWeekData){
         d.water = +d.water;
     });
 
-    console.log("saafe"+JSON.stringify(data));
-
     // Scale the range of the data
     x.domain(d3.extent(data, function(d) { return d.date; }));
     y0.domain([0, d3.max(data, function(d) {
@@ -82,12 +76,17 @@ function plot(lastWeekData){
     y1.domain([0, d3.max(data, function(d) { 
 		return Math.max(d.calories); })]);
 
-    svg.append("path")        // Add the valueline path.
-        .attr("d", valueline(data));
+    svg.append("path")  
+        .style("stroke", "red")      // Add the valueline path.
+        .attr("d", valueline(data))
+        .on("mouseover", mouseover)
+  		.on("mouseout", mouseout);
 
     svg.append("path")        // Add the valueline2 path.
-        .style("stroke", "red")
-        .attr("d", valueline2(data));
+        .style("stroke", "steelblue")
+        .attr("d", valueline2(data))
+        .on("mouseover", mouseover)
+  		.on("mouseout", mouseout);
 
     svg.append("g")            // Add the X Axis
         .attr("class", "x axis")
@@ -96,12 +95,30 @@ function plot(lastWeekData){
 
     svg.append("g")
         .attr("class", "y axis")
-        .style("fill", "steelblue")
+        .style("fill", "red")
         .call(yAxisLeft);	
 
     svg.append("g")				
         .attr("class", "y axis")	
         .attr("transform", "translate(" + width + " ,0)")	
-        .style("fill", "red")		
+        .style("fill", "steelblue")		
         .call(yAxisRight);
+
+    // hovering
+    function mouseover(d) {
+        var me = this;
+        //d3.select(d.line).classed("line--hover", true);
+        d3.selectAll(".line").classed("line--hover", function() {
+          return (this === me);
+        }).classed("line--fade", function() {
+          return (this !== me);
+        });
+      }
+      
+      function mouseout(d) {
+        console.log("out");
+        d3.selectAll(".line")
+          .classed("line--hover", false)
+          .classed("line--fade", false);
+      }
 }
