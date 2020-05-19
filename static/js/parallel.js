@@ -79,20 +79,28 @@ var svg = d3.select("#paracoords")
 var flag = 0
 
 function getParacoords() {
+    var selected = $("#lstNutrition option:selected");
+    var required_columns = "name,group";
+    var i = 0
+    selected.each(function () {
+        i++
+        required_columns += ","
+        required_columns += $(this).text()
+    });
+    console.log(required_columns)
+
+    if (i == 0) {
+        alert("Select atleast 1 nutrition");
+        return
+    }
     d3.select("#paracoords").remove()
     svg = d3.select("#chart").append("svg").attr("id", "paracoords")
     svg = d3.select("#paracoords")
-    .attr("width", w + m[1] + m[3])
-    .attr("height", h + m[0] + m[2])
-    .append("svg:g")
-    .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
-    var required_columns = ""
-    if (flag % 2) {
-        required_columns = "id,sodium (g),calcium (g),water (g),calories,name,group"
-    } else {
-        required_columns = "water (g),calories,name,group"
-    }
-    flag++
+        .attr("width", w + m[1] + m[3])
+        .attr("height", h + m[0] + m[2])
+        .append("svg:g")
+        .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+
 
     $.get("/getParacoords?required_columns=" + required_columns, function (data) {
         createParacoords(data.chart_data)
