@@ -2,24 +2,177 @@
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
-    <title>Health Dataset</title>
-    <!-- CSS  -->
-    <script type="text/javascript" src="static/lib/d3/d3.min.js"></script>
-    <!--using version 3 of d3js-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
-    <link href="static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
-    <!-- Need internal css to override all others-->
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+  <title>Health Dataset</title>
+  <!-- CSS  -->
+  <!--using version 3 of d3js-->
+  <!-- <link rel="stylesheet" href="static/css/style.css"> causes issues -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="static/css/parallel.css" />
+
+  <!-- Need internal css to override all others-->
 </head>
+<style>
+  body {
+    font: 12px Arial;
+  }
+
+  path {
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+  }
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+  }
+
+  /* line hover */
+  .line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 2px;
+  }
+
+  .line--fade {
+    opacity: 0.5;
+  }
+
+  .line--hover {
+    stroke-width: 3px;
+    opacity: 1.0;
+  }
+</style>
 
 <body>
-    <!--  Scripts-->
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="static/js/materialize.js"></script>
-    <script src="static/js/init.js"></script>
-     <!--
+  <!-- start -->
+  <div class="container-fluid">
+    <div class="card-group">
+      <div class="col mb-6">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-2">
+                <select id="lstNutrition" multiple="multiple">
+                  <option value="1" selected>protein (g)</option>
+                  <option value="2" selected>calcium (g)</option>
+                  <option value="3" selected>sodium (g)</option>
+                  <option value="4" selected>fiber (g)</option>
+                  <option value="5" selected>vitaminc (g)</option>
+                  <option value="6" selected>potassium (g)</option>
+                  <option value="7" selected>carbohydrate (g)</option>
+                  <option value="8" selected>sugars (g)</option>
+                  <option value="9" selected>fat (g)</option>
+                  <option value="10" selected>water (g)</option>
+                  <option value="11" selected>calories</option>
+                  <option value="12" selected>saturated (g)</option>
+                  <option value="13" selected>monounsat (g)</option>
+                  <option value="14" selected>polyunsat (g)</option>
+                </select>
+              </div>
+              <div class="col-md-1">
+                <input id="renderBtn" name="updateButton" class="btn btn-primary" type="button" value="Render"
+                  onclick="getParacoords()" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-group">
+      <div class="col mb-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"> Weekly Calorie/Water Tracking</h5>
+            <div class="row" id="myfitnesspal_chart">
+              <!-- append SVGs here -->
+
+            </div>
+          </div>
+        </div>
+        <br />
+      </div>
+
+      <div class="col mb-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">RDA Fulfillment (in %)</h5>
+            <div id='dashboard'>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-group">
+      <div class="col mb-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Multidimensional Food Explorer</h5>
+            <div id="chart">
+              <canvas id="background" class="paracoordspos"></canvas>
+              <canvas id="foreground" class="paracoordspos"></canvas>
+              <canvas id="highlight" class="paracoordspos"></canvas>
+              <svg id="paracoords" class="paracoordspos"></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col mb-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Search Food</h5>
+            <div id="wrap">
+              <div class="searchfood">
+                <h5> <input type="text" id="search"></input>
+                </h5>
+                <p id="food-list">
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- end -->
+  <!--  Scripts-->
+
+  <script type="text/javascript" src="static/lib/d3/d3.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="static/js/init.js"></script>
+  <script src="static/js/myfitnesstrack.js"></script>
+  <script src="http://underscorejs.org/underscore.js"></script>
+
+  <script src="static/js/parallel.js"></script>
+  <script src="static/js/histogram.js"></script>
+
+  <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
+    rel="stylesheet" type="text/css" />
+  <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"
+    type="text/javascript"></script>
+  <script type="text/javascript">
+    $(function () {
+      $('#lstNutrition').multiselect({
+        includeSelectAllOption: true
+      });
+    });
+
+  </script>
+  <!--
     <script src="static/js/helper_task2.js"></script>
      -->
 </body>
